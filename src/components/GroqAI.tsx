@@ -1,6 +1,6 @@
 "use client";
 
-import { Send } from "lucide-react";
+import { Loader, Send } from "lucide-react";
 import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
 import MarkdownRenderer from "@/components/markdown-renderer";
@@ -9,30 +9,28 @@ import { useChat } from "@ai-sdk/react";
 
 const GroqAI = () => {
 
-  const [isLoading, setIsLoading] = useState(false); // New state for loading
-
   const messageEndRef = useRef<HTMLDivElement>(null);
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: "api/chat/groq",
   });
 
-  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsLoading(true);
-    try {
-      await handleSubmit(event);
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Submission failed:", error);
-      setIsLoading(false);
+
+  useEffect(() => {
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }, [messages]);
+
+  const [loading, setLoading] = useState<boolean>(false);
 
   return (
     <div className="flex flex-col min-h-svh items-center justify-between h-screen sm:p-3 lg:px-52 overflow-y-hidden pissoff">
-      <div className="h-full w-full flex flex-col items-center justify-center bg-gradient-to-r from-red-950/90 via-neutral-950 to-red-950/90 bg-opacity-90 backdrop-blur-md sm:rounded-lg overflow-y-scroll scroll-auto" style={{
-        scrollbarWidth: 'none',
-      }}>
+      <div ref={messageEndRef} className="h-full w-full flex flex-col items-center justify-center bg-gradient-to-r from-red-950/90 via-neutral-950 to-red-950/90 bg-opacity-90 backdrop-blur-md sm:rounded-lg overflow-y-auto scroll-smooth"
+        style={{
+          scrollbarColor: 'rgba(255, 0, 0, 0.406)', borderRadius: '10px',
+          scrollbarWidth: 'thin'
+        }}
+      >
         {messages.length === 0 ? (
           <>
             <div className="flex flex-col justify-center items-center">
@@ -49,7 +47,7 @@ const GroqAI = () => {
                 height={300}
                 alt="Groq AI"
                 className="mt-8 scale-90 hover:scale-105 transition-all duration-500 ease-in-out robot"
-              /> 
+              />
             </div>
           </>
         ) : (
@@ -84,10 +82,12 @@ const GroqAI = () => {
                   <div
                     className={`chat-bubble max-w-full sm:max-w-3xl ${message.role === "assistant"
                       ? "bg-[#ff8282] text-black"
-                      : "bg-gray-950 text-white"
+                      : "bg-neutral-950 text-white"
                       }`}
                   >
-                    <MarkdownRenderer content={message.content} />
+                    <MarkdownRenderer content={message.content} assisstant={
+                      message.role === "assistant" ? "Groq" : "User"
+                    } />
                   </div>
                 </div>
               ))}
@@ -100,7 +100,12 @@ const GroqAI = () => {
       <div className="w-full flex flex-col items-start justify-center h-20 mt-5">
         <form
           className="w-full flex items-center bg-gradient-to-r from-red-950/90 via-neutral-950 to-red-950/90 backdrop-blur-md rounded-md px-4 py-2 mb-4"
-          onSubmit={handleFormSubmit}
+          onSubmit={async (e) => {
+            e.preventDefault();
+            setLoading(true); // Set loading to true immediately
+            await handleSubmit(); // Assuming handleSubmit is async and returns a promise
+            setLoading(false); // Set loading to false after handleSubmit completes
+          }}
         >
           <input
             name="prompt"
@@ -110,14 +115,19 @@ const GroqAI = () => {
             id="input"
             placeholder="Enter your prompt"
             className="bg-transparent text-white outline-none flex-grow"
-            disabled={isLoading}
+            disabled={loading}
           />
           <button
             type="submit"
-            className={`bg-red-500 flex justify-center items-center gap-2 text-white px-4 py-2 rounded-md ml-4 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`bg-red-500 flex justify-center items-center gap-2 text-white px-4 py-2 rounded-md ml-4 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
-            {isLoading ? 'Generating...' : 'Send'}
-            {!isLoading && <Send size={20} />}
+            {
+              loading ? <Loader className="animate-spin" size={24} /> :
+                <>
+                  Send
+                  <Send size={24} />
+                </>
+            }
           </button>
         </form>
       </div>
