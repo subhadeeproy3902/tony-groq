@@ -1,63 +1,29 @@
-
-import ReactMarkdown from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark as dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Copy } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 import { Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-
-interface CodeBlockProps {
-  language: string;
-  value: string;
-}
-
-const CodeBlock: React.FC<CodeBlockProps> = ({ language, value }) => {
-  return (
-    <div style={{ position: 'relative', marginBottom: '1rem' }}>
-      <CopyToClipboard text={value}>
-        <button
-          style={{
-            position: 'absolute',
-            right: '10px',
-            top: '10px',
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            color: 'white',
-          }}
-          title="Copy to clipboard"
-        >
-          <Copy size={20} />
-        </button>
-      </CopyToClipboard>
-      <SyntaxHighlighter language={language} style={dark}>
-        {value}
-      </SyntaxHighlighter>
-    </div>
-  );
-};
 
 interface MarkdownRendererProps {
   content: string;
 }
 
 const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
-  const components: Components = {
-    code({ node, className, children, ...props }) {
-      const match = /language-(\w+)/.exec(className || '');
-      return match ? (
-        <CodeBlock language={match[1]} value={String(children).replace(/\n$/, '')} />
-      ) : (
-        <code className={className} {...props}>
-          {children}
-        </code>
-      );
-    },
+  const components: Components = {};
+
+  const copyContent = () => {
+    navigator.clipboard.writeText(content);
   };
 
   return (
-    <div className="text-sm sm:text-base font-medium markdown-body text-wrap whitespace-pre-line">
+    <div className="relative text-sm sm:text-base font-medium markdown-body text-wrap whitespace-pre-line">
+      {/* Copy Button */}
+      <button 
+        onClick={copyContent} 
+        style={{ position: 'absolute', top: 0, right: 0, padding: '0.5rem', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+      >
+        <Copy size={16} />
+      </button>
+
       <ReactMarkdown components={components} remarkPlugins={[remarkGfm]}>
         {content}
       </ReactMarkdown>
