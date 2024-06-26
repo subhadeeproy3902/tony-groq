@@ -57,7 +57,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
   };
 
   return (
-    <div className="text-sm sm:text-base font-medium markdown-body text-wrap">
+    <div className="text-sm sm:text-base font-medium markdown-body text-wrap whitespace-pre-line">
       <ReactMarkdown components={components} remarkPlugins={[remarkGfm]}>
         {content}
       </ReactMarkdown>
