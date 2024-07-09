@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Groq](https://i.postimg.cc/RV1T5Y5T/marvel-iron-man-in-destroyed-suit-desktop-wallpaper-preview.webp)
 
-## Getting Started
+# Iron Man Themed Groq AI Chatbot
 
-First, run the development server:
+Welcome kid, myself Tony you know me as Iron Man from 'Marvels'. I am here to help you with any query of your. Be it codes, be it frank talks, I am here for you always.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Installation
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To get started with V.S.A.I, follow these simple steps:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/subhadeeproy3902/tony-groq.git
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+2. Navigate to the project directory:
+    ```sh
+    cd tony-groq
+    ```
 
-## Learn More
+3. Install the required dependencies:
+    ```sh
+    npm install
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+4. Make a `.env.local` file in the main directory paste the following there
+    ```sh
+    NEXT_PUBLIC_GROQ_API_KEY=your-groq-api-key
+    ```
+    You will be getting the Groq API from [Groq Store](https://console.groq.com/keys)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. Start the application:
+    ```sh
+    npm start
+    ```
+  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Usage
 
-## Deploy on Vercel
+1. Open your browser and navigate to `http://localhost:3000`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. Start chatting now. What's the wait !!
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## License
+
+This project is licensed under the MIT License - see the [MIT LICENSE](https://github.com/subhadeeproy3902/tony-groq/blob/main/LICENSE) file for details.
+
+## Contact
+
+For questions or suggestions, feel free to reach out:
+
+- Email: [subha9.5roy350@gmail.com](mailto:subha9.5roy350@gmail.com)
+
+- LinkedIn: [My LinkedIn Profile](https://linkedin.com/in/subhadeep3902)
+
+---
+
+If you like this project do give a ⭐. 😅😅

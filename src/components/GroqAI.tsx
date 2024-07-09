@@ -66,7 +66,7 @@ const GroqAI = () => {
                       <Image
                         width={500}
                         height={500}
-                        alt={`${message.role === "assistant" ? "Groq" : "User"
+                        alt={`${message.role === "assistant" ? "Tony" : "User"
                           } Avatar`}
                         src={
                           message.role === "assistant"
@@ -77,7 +77,7 @@ const GroqAI = () => {
                     </div>
                   </div>
                   <div className="chat-header mb-1">
-                    {message.role === "assistant" ? "Groq" : "User"}
+                    {message.role === "assistant" ? "Tony" : "User"}
                   </div>
                   <div
                     className={`chat-bubble max-w-full sm:max-w-3xl ${message.role === "assistant"
@@ -86,7 +86,7 @@ const GroqAI = () => {
                       }`}
                   >
                     <MarkdownRenderer content={message.content} assisstant={
-                      message.role === "assistant" ? "Groq" : "User"
+                      message.role === "assistant" ? "Tony" : "User"
                     } />
                   </div>
                 </div>
