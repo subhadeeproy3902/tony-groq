@@ -6,7 +6,7 @@ Welcome kid, myself Tony you know me as Iron Man from 'Marvels'. I am here to he
 
 ## Installation
 
-To get started with V.S.A.I, follow these simple steps:
+To get started with Groq Tony, follow these simple steps:
 
 1. Clone the repository:
     ```sh
